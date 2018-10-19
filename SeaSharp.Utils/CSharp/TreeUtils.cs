@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Sea.Utils
+namespace SeaSharp.Utils
 {
     /// <summary>
     /// 树形结构

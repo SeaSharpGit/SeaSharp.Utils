@@ -8,7 +8,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Web;
 
-namespace Sea.Utils
+namespace SeaSharp.Utils
 {
     public static class FileUtils
     {
@@ -40,6 +40,38 @@ namespace Sea.Utils
             return str.Length > 0 ? str.Substring(0, str.Length - 1) : "";
         }
         #endregion
+
+        public static bool CopyBig(this string sourceFileName, string destFileName, long size = 1048576)
+        {
+            if (size <= 0)
+            {
+                throw new Exception("size参数必须大于0");
+            }
+            try
+            {
+                using (var read = new FileStream(sourceFileName, FileMode.Open, FileAccess.Read))
+                {
+                    using (var write = new FileStream(destFileName, FileMode.Create, FileAccess.Write))
+                    {
+                        var bytes = new byte[size];
+                        while (true)
+                        {
+                            var length = read.Read(bytes, 0, bytes.Length);
+                            if (length == 0)
+                            {
+                                break;
+                            }
+                            write.Write(bytes, 0, length);
+                        }
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
 
         public static string GetExtension(this string fileName)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sea.Helpers.Utils
+namespace SeaSharp.Helpers.Utils
 {
     public static class ImageUtils
     {

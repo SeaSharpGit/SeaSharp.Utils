@@ -12,7 +12,7 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 
-namespace Sea.Utils
+namespace SeaSharp.Utils
 {
     public static class ExcelUtils
     {

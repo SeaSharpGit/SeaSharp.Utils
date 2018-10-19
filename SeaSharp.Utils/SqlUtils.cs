@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 
-namespace Sea.Utils
+namespace SeaSharp.Utils
 {
     public class SqlUtils
     {
