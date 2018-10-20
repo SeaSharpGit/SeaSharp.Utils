@@ -49,9 +49,9 @@ namespace SeaSharp.Utils
             }
             try
             {
-                using (var read = new FileStream(sourceFileName, FileMode.Open, FileAccess.Read))
+                using (var read = File.OpenRead(sourceFileName))
                 {
-                    using (var write = new FileStream(destFileName, FileMode.Create, FileAccess.Write))
+                    using (var write =File.OpenWrite(destFileName))
                     {
                         var bytes = new byte[size];
                         while (true)
