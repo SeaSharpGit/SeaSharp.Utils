@@ -16,6 +16,7 @@ namespace SeaSharp.Test
             watch.Start();
 
 
+
             watch.Stop();
             Debug.WriteLine("时间是：" + watch.ElapsedMilliseconds + "毫秒");
         }

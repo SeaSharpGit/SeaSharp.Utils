@@ -67,22 +67,7 @@ namespace SeaSharp.Utils
         #region Object转换为基础类型
         public static bool ToBoolean(this object obj)
         {
-            if (obj is bool boolResult)
-            {
-                return boolResult;
-            }
-            var str = obj.ToString().Trim().ToLower();
-            switch (str)
-            {
-                case "1":
-                case "true":
-                    return true;
-                case "0":
-                case "false":
-                    return false;
-                default:
-                    return Convert.ToBoolean(obj);
-            }
+            return Convert.ToBoolean(obj);
         }
 
         public static short ToInt16(this object obj)
