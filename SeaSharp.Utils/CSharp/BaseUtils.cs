@@ -59,6 +59,21 @@ namespace SeaSharp.Utils
 
             return str[0].ToUpper().ToString() + str.Substring(1);
         }
+        
+        public static string ToLowerFirst(this string str)
+        {
+            if (str == null || str.Length == 0)
+            {
+                return "";
+            }
+
+            if (str.Length == 1)
+            {
+                return str.ToLower();
+            }
+
+            return str[0].ToLower().ToString() + str.Substring(1);
+        }
         #endregion
 
         #region 判断整数是奇数/偶数
