@@ -44,6 +44,21 @@ namespace SeaSharp.Utils
         {
             return char.ToLower(c);
         }
+
+        public static string ToUpperFirst(this string str)
+        {
+            if (str == null || str.Length == 0)
+            {
+                return "";
+            }
+
+            if (str.Length == 1)
+            {
+                return str.ToUpper();
+            }
+
+            return str[0].ToUpper().ToString() + str.Substring(1);
+        }
         #endregion
 
         #region 判断整数是奇数/偶数
