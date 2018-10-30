@@ -1,5 +1,6 @@
 ﻿using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -79,20 +80,21 @@ namespace SeaSharp.Utils
         /// NPOI导入
         /// </summary>
         /// <param name="filePath">地址需要加入：HttpRuntime.AppDomainAppPath</param>
-        /// <param name="dcs">
-        ///     var dcs = new DataColumn[] {
+        /// <param name="columns">
+        ///     var columns = new DataColumn[] {
         ///         new DataColumn("ID", Type.GetType("System.Int32")),
         ///         new DataColumn("Name", Type.GetType("System.String"))
         ///     };
         /// </param>
-        public static DataTable ImportExcel(string filePath, DataColumn[] dcs)
+        public static DataTable ExcelToDataTable(string filePath, DataColumn[] columns)
         {
             var dt = new DataTable();
-            dt.Columns.AddRange(dcs);
+            dt.Columns.AddRange(columns);
             using (var fs = File.OpenRead(filePath))
             {
-                ICell cell = null;
-                var wk = new HSSFWorkbook(fs);
+                //Office2003版.xls使用HSSFWorkbook
+                //Office2007版.xlsx使用XSSFWorkbook
+                var wk = new XSSFWorkbook(fs);
                 var sheet = wk.GetSheetAt(0);
                 for (int i = 1; i <= sheet.LastRowNum; i++)
                 {
@@ -105,7 +107,7 @@ namespace SeaSharp.Utils
                     dr[0] = i;
                     for (int j = 0; j < row.LastCellNum; j++)
                     {
-                        cell = row.GetCell(j);
+                        var cell = row.GetCell(j);
                         if (cell == null)
                         {
                             dr[j + 1] = "";
@@ -121,9 +123,13 @@ namespace SeaSharp.Utils
                                     short format = cell.CellStyle.DataFormat;
                                     //对时间格式（2015.12.5、2015/12/5、2015-12-5等）的处理  
                                     if (format == 14 || format == 31 || format == 57 || format == 58 || format == 180)
+                                    {
                                         dr[j + 1] = cell.DateCellValue;
+                                    }
                                     else
+                                    {
                                         dr[j + 1] = cell.NumericCellValue;
+                                    }
                                     break;
                                 case CellType.String:
                                     dr[j + 1] = cell.StringCellValue;
@@ -139,7 +145,7 @@ namespace SeaSharp.Utils
         #endregion
 
         #region NPOI导出(NoTest)
-        public static void ExportExcelWeb(DataTable dt, string fileName, string sheetName = "Sheet1")
+        public static void ExportExcel(DataTable dt, string fileName, string sheetName = "Sheet1")
         {
             var book = new HSSFWorkbook();
             var sheet = book.CreateSheet(sheetName);
