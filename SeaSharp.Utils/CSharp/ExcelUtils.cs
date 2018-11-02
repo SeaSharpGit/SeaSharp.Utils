@@ -79,7 +79,7 @@ namespace SeaSharp.Utils
         /// <summary>
         /// NPOI导入
         /// </summary>
-        /// <param name="filePath">地址需要加入：HttpRuntime.AppDomainAppPath</param>
+        /// <param name="filePath">Excel物理路径</param>
         /// <param name="columns">
         ///     var columns = new DataColumn[] {
         ///         new DataColumn("ID", Type.GetType("System.Int32")),

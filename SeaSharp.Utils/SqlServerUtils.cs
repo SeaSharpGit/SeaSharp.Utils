@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace SeaSharp.Utils
 {
-    public class SqlUtils
+    public static class SqlServerUtils
     {
         #region PROC(UnFinished)
         public static string PROC(string procName, params SqlParameter[] sps)

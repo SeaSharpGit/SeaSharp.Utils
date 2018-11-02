@@ -8,35 +8,8 @@ namespace SeaSharp.Utils
     /// </summary>
     public class TreeModel
     {
-        #region 属性 ID
-        private string _ID = string.Empty;
-        public string ID
-        {
-            get
-            {
-                return _ID;
-            }
-            set
-            {
-                _ID = value;
-            }
-        }
-        #endregion
-
-        #region 属性 PID
-        private string _PID = string.Empty;
-        public string PID
-        {
-            get
-            {
-                return _PID;
-            }
-            set
-            {
-                _PID = value;
-            }
-        }
-        #endregion
+        public string ID { get; set; } = string.Empty;
+        public string PID { get; set; } = string.Empty;
 
         #region Children
         private List<TreeModel> _Children = null;

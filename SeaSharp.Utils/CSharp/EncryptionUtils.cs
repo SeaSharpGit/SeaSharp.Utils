@@ -80,82 +80,6 @@ namespace SeaSharp.Utils
         }
         #endregion
 
-        #region RSA（非对称）
-        /// <summary>
-        /// RSA生成公钥和私钥（非对称）
-        /// </summary>
-        public static void RsaCreateKeys()
-        {
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            using (StreamWriter writer = new StreamWriter("PrivateKey.xml"))
-            {
-                writer.WriteLine(rsa.ToXmlString(true));
-            }
-            using (StreamWriter writer = new StreamWriter("PublicKey.xml"))
-            {
-                writer.WriteLine(rsa.ToXmlString(false));
-            }
-        }
-
-        /// <summary>
-        /// RSA加密（非对称）
-        /// </summary>
-        /// <param name="encryptString">待加密的字符串</param>
-        /// <param name="encryptKey">加密密钥</param>
-        /// <returns>失败返回原字符串</returns>
-        public static string RsaEncrypt(string encryptString, string encryptKey)
-        {
-            if (string.IsNullOrEmpty(encryptString))
-            {
-                return "";
-            }
-            if (string.IsNullOrEmpty(encryptKey))
-            {
-                throw new Exception("加密密钥错误");
-            }
-            try
-            {
-                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-                rsa.FromXmlString(encryptKey);
-                var cipherbytes = rsa.Encrypt(Encoding.UTF8.GetBytes(encryptString), true);
-                return Convert.ToBase64String(cipherbytes);
-            }
-            catch (Exception)
-            {
-                return encryptString;
-            }
-        }
-
-        /// <summary>
-        /// RSA解密（非对称）
-        /// </summary>
-        /// <param name="decryptString">待解密的字符串</param>
-        /// <param name="decryptKey">解密密钥</param>
-        /// <returns>失败返回原字符串</returns>
-        public static string RsaDecrypt(string decryptString, string decryptKey)
-        {
-            if (string.IsNullOrEmpty(decryptString))
-            {
-                return "";
-            }
-            if (string.IsNullOrEmpty(decryptKey))
-            {
-                throw new Exception("解密密钥错误");
-            }
-            try
-            {
-                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-                rsa.FromXmlString(decryptKey);
-                var cipherbytes = rsa.Decrypt(Convert.FromBase64String(decryptString), true);
-                return Encoding.UTF8.GetString(cipherbytes);
-            }
-            catch (Exception)
-            {
-                return decryptString;
-            }
-        }
-        #endregion
-
         #region DES（对称）
         /// <summary>
         /// DES加密（对称）
@@ -315,7 +239,81 @@ namespace SeaSharp.Utils
         }
         #endregion
 
+        #region RSA（非对称）
+        /// <summary>
+        /// RSA生成公钥和私钥（非对称）
+        /// </summary>
+        public static void RsaCreateKeys()
+        {
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            using (StreamWriter writer = new StreamWriter("PrivateKey.xml"))
+            {
+                writer.WriteLine(rsa.ToXmlString(true));
+            }
+            using (StreamWriter writer = new StreamWriter("PublicKey.xml"))
+            {
+                writer.WriteLine(rsa.ToXmlString(false));
+            }
+        }
 
+        /// <summary>
+        /// RSA加密（非对称）
+        /// </summary>
+        /// <param name="encryptString">待加密的字符串</param>
+        /// <param name="encryptKey">加密密钥</param>
+        /// <returns>失败返回原字符串</returns>
+        public static string RsaEncrypt(string encryptString, string encryptKey)
+        {
+            if (string.IsNullOrEmpty(encryptString))
+            {
+                return "";
+            }
+            if (string.IsNullOrEmpty(encryptKey))
+            {
+                throw new Exception("加密密钥错误");
+            }
+            try
+            {
+                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+                rsa.FromXmlString(encryptKey);
+                var cipherbytes = rsa.Encrypt(Encoding.UTF8.GetBytes(encryptString), true);
+                return Convert.ToBase64String(cipherbytes);
+            }
+            catch (Exception)
+            {
+                return encryptString;
+            }
+        }
+
+        /// <summary>
+        /// RSA解密（非对称）
+        /// </summary>
+        /// <param name="decryptString">待解密的字符串</param>
+        /// <param name="decryptKey">解密密钥</param>
+        /// <returns>失败返回原字符串</returns>
+        public static string RsaDecrypt(string decryptString, string decryptKey)
+        {
+            if (string.IsNullOrEmpty(decryptString))
+            {
+                return "";
+            }
+            if (string.IsNullOrEmpty(decryptKey))
+            {
+                throw new Exception("解密密钥错误");
+            }
+            try
+            {
+                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+                rsa.FromXmlString(decryptKey);
+                var cipherbytes = rsa.Decrypt(Convert.FromBase64String(decryptString), true);
+                return Encoding.UTF8.GetString(cipherbytes);
+            }
+            catch (Exception)
+            {
+                return decryptString;
+            }
+        }
+        #endregion
 
 
 

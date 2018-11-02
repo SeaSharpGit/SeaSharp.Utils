@@ -61,7 +61,7 @@ namespace SeaSharp.Utils
 
 
         /// <summary>
-        /// 将IP四组值 转换成byte型
+        /// 将IP四个值 转换成byte型
         /// </summary>
         /// <param name="ip"></param>
         /// <returns></returns>
