@@ -110,7 +110,8 @@ namespace SeaSharp.Utils
                         var cell = row.GetCell(j);
                         if (cell == null)
                         {
-                            dr[j + 1] = "";
+                            var type = columns[j + 1].DataType;
+                            dr[j + 1] = type.IsValueType ? Activator.CreateInstance(type) : null;
                         }
                         else
                         {
