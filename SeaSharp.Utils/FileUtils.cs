@@ -12,36 +12,7 @@ namespace SeaSharp.Utils
 {
     public static class FileUtils
     {
-        #region 上传附件
-        /// <summary>
-        /// 上传文件
-        /// </summary>
-        /// <param name="files">HttpContext.Current.Request.Files</param>
-        /// <param name="savePath">保存地址</param>
-        /// <returns>保存地址用逗号分隔</returns>
-        public static string Upload(this HttpFileCollection files, string savePath)
-        {
-            var str = string.Empty;
-            foreach (HttpPostedFile file in files)
-            {
-                var ext = Path.GetExtension(file.FileName);
-                var fileName = Guid.NewGuid().ToString("N") + ext;
-                if (file.ContentLength > 0 || !string.IsNullOrEmpty(file.FileName))
-                {
-                    string filePath = string.Format(HttpRuntime.AppDomainAppPath.ToString() + savePath);
-                    if (!Directory.Exists(filePath))
-                    {
-                        Directory.CreateDirectory(filePath);
-                    }
-                    file.SaveAs(filePath + "\\" + fileName);
-                    str += savePath + "\\" + fileName + ",";
-                }
-            }
-            return str.Length > 0 ? str.Substring(0, str.Length - 1) : "";
-        }
-        #endregion
-
-        public static bool CopyBig(this string sourceFileName, string destFileName, long size = 1048576)
+        public static bool CopyBig(string sourceFileName, string destFileName, long size = 1048576)
         {
             if (size <= 0)
             {
