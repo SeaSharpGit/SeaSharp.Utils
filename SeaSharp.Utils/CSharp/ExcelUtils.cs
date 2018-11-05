@@ -80,16 +80,16 @@ namespace SeaSharp.Utils
         /// NPOI导入
         /// </summary>
         /// <param name="filePath">Excel物理路径</param>
-        /// <param name="columns">
-        ///     var columns = new DataColumn[] {
-        ///         new DataColumn("ID", Type.GetType("System.Int32")),
-        ///         new DataColumn("Name", Type.GetType("System.String"))
-        ///     };
-        /// </param>
-        public static DataTable ExcelToDataTable(string filePath, DataColumn[] columns)
+        /// <param name="columns">字段名称</param>
+        public static DataTable ExcelToDataTable(string filePath, List<string> columns)
         {
             var dt = new DataTable();
-            dt.Columns.AddRange(columns);
+            dt.Columns.Add(new DataColumn("ID", typeof(int)));
+            foreach (var item in columns)
+            {
+                dt.Columns.Add(new DataColumn(item, typeof(string)));
+            }
+
             using (var fs = File.OpenRead(filePath))
             {
                 //Office2003版.xls使用HSSFWorkbook
@@ -110,8 +110,7 @@ namespace SeaSharp.Utils
                         var cell = row.GetCell(j);
                         if (cell == null)
                         {
-                            var type = columns[j + 1].DataType;
-                            dr[j + 1] = type.IsValueType ? Activator.CreateInstance(type) : null;
+                            dr[j + 1] = "";
                         }
                         else
                         {
