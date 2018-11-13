@@ -67,6 +67,7 @@
     <Compile Include="CSharp\ImageUtils.cs" />
     <Compile Include="CSharp\IPUtils.cs" />
     <Compile Include="CSharp\PinYinUtils.cs" />
+    <Compile Include="CSharp\RegexUtils.cs" />
     <Compile Include="CSharp\TreeUtils.cs" />
     <Compile Include="FileUtils.cs" />
     <Compile Include="MySqlUtils.cs" />
