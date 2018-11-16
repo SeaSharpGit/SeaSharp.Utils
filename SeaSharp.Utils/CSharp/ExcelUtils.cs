@@ -87,7 +87,7 @@ namespace SeaSharp.Utils
             dt.Columns.Add(new DataColumn("ID", typeof(int)));
             foreach (var item in columns)
             {
-                dt.Columns.Add(new DataColumn(item, typeof(string)));
+                dt.Columns.Add(new DataColumn(item, typeof(string)) { DefaultValue = "" });
             }
 
             using (var fs = File.OpenRead(filePath))
