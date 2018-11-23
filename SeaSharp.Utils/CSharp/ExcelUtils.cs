@@ -18,7 +18,7 @@ namespace SeaSharp.Utils
     public static class ExcelUtils
     {
         #region List转DataTable
-        public static DataTable ConvertToDataTable<T>(this IEnumerable<T> collection) where T : class, new()
+        public static DataTable ListToDataTable<T>(IEnumerable<T> collection) where T : class, new()
         {
             var props = typeof(T).GetProperties();
             var dt = new DataTable();
@@ -42,7 +42,7 @@ namespace SeaSharp.Utils
         #endregion
 
         #region DataTable转List
-        public static List<T> ConvertToList<T>(this DataTable dt) where T : class, new()
+        public static List<T> DataTableToList<T>(DataTable dt) where T : class, new()
         {
             if (dt == null)
             {
