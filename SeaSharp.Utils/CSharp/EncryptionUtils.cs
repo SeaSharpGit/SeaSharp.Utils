@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SeaSharp.Utils
+namespace SeaSharp.Utils.CSharp
 {
     public static class EncryptionUtils
     {

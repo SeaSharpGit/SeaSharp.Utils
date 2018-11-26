@@ -12,7 +12,7 @@
 using System;
 using System.Text;
 
-namespace SeaSharp.Utils
+namespace SeaSharp.Utils.CSharp
 {
     public static class PinYinUtils
     {
