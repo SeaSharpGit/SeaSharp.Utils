@@ -48,10 +48,13 @@
     <Reference Include="NPOI.OpenXmlFormats, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,6 +70,7 @@
     <Compile Include="CSharp\HttpUtils.cs" />
     <Compile Include="CSharp\ImageUtils.cs" />
     <Compile Include="CSharp\IPUtils.cs" />
+    <Compile Include="CSharp\MonthDayUtils.cs" />
     <Compile Include="CSharp\PinYinUtils.cs" />
     <Compile Include="CSharp\RegexUtils.cs" />
     <Compile Include="CSharp\TreeUtils.cs" />
@@ -75,7 +79,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerUtils.cs" />
     <Compile Include="Wpf\BaseViewModel.cs" />
+    <Compile Include="Wpf\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Wpf\CollectionBase.cs" />
+    <Compile Include="Wpf\Converters\ObjectToTypeConverter.cs" />
+    <Compile Include="Wpf\Converters\FileSizeToStringConverter.cs" />
+    <Compile Include="Wpf\Converters\StringToDateTimeConverter.cs" />
+    <Compile Include="Wpf\RelayCommand.cs" />
+    <Compile Include="Wpf\WpfApplication.cs" />
+    <Compile Include="Wpf\WpfHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
