@@ -81,15 +81,23 @@ namespace SeaSharp.Utils.CSharp
         /// </summary>
         /// <param name="filePath">Excel物理路径</param>
         /// <param name="columns">字段名称</param>
+        /// <returns>  
+        ///     DataTable中所有列均为string类型切默认值为string.Empty，过滤掉了null的情况
+        ///     默认2个字段：
+        ///         ID：次序，从1开始
+        ///         Index：行号，从2开始，第一行是标题
+        /// </returns>
         public static DataTable ExcelToDataTable(string filePath, List<string> columns)
         {
             var dt = new DataTable();
             dt.Columns.Add(new DataColumn("ID", typeof(int)));
+            dt.Columns.Add(new DataColumn("Index", typeof(int)));
             foreach (var item in columns)
             {
                 dt.Columns.Add(new DataColumn(item, typeof(string)) { DefaultValue = "" });
             }
 
+            var id = 1;
             using (var fs = File.OpenRead(filePath))
             {
                 //Office2003版.xls使用HSSFWorkbook
@@ -99,48 +107,45 @@ namespace SeaSharp.Utils.CSharp
                 for (int i = 1; i <= sheet.LastRowNum; i++)
                 {
                     var row = sheet.GetRow(i);
-                    if (row == null)
+                    if (row == null || row.Cells == null || row.Cells.Count == 0 || row.Cells.All(a => string.IsNullOrEmpty(a.StringCellValue)))
                     {
                         continue;
                     }
                     var dr = dt.NewRow();
-                    dr[0] = i;
+                    dr[0] = id;
+                    dr[1] = i + 1;
                     for (int j = 0; j < row.LastCellNum; j++)
                     {
                         var cell = row.GetCell(j);
-                        if (cell == null)
-                        {
-                            dr[j + 1] = "";
-                        }
-                        else
-                        {
-                            switch (cell.CellType)
-                            {
-                                case CellType.Blank:
-                                    dr[j + 1] = "";
-                                    break;
-                                case CellType.Numeric:
-                                    short format = cell.CellStyle.DataFormat;
-                                    //对时间格式（2015.12.5、2015/12/5、2015-12-5等）的处理  
-                                    if (format == 14 || format == 31 || format == 57 || format == 58 || format == 180)
-                                    {
-                                        dr[j + 1] = cell.DateCellValue;
-                                    }
-                                    else
-                                    {
-                                        dr[j + 1] = cell.NumericCellValue;
-                                    }
-                                    break;
-                                case CellType.String:
-                                    dr[j + 1] = cell.StringCellValue;
-                                    break;
-                            }
-                        }
+                        dr[j + 2] = cell?.StringCellValue ?? "";
                     }
                     dt.Rows.Add(dr);
+                    id++;
                 }
             }
             return dt;
+            //保留旧方式，留作备用
+            //switch (cell.CellType)
+            //{
+            //    case CellType.Blank:
+            //        dr[j + 1] = "";
+            //        break;
+            //    case CellType.Numeric:
+            //        short format = cell.CellStyle.DataFormat;
+            //        //对时间格式（2015.12.5、2015/12/5、2015-12-5等）的处理  
+            //        if (format == 14 || format == 31 || format == 57 || format == 58 || format == 180)
+            //        {
+            //            dr[j + 1] = cell.DateCellValue;
+            //        }
+            //        else
+            //        {
+            //            dr[j + 1] = cell.NumericCellValue;
+            //        }
+            //        break;
+            //    case CellType.String:
+            //        dr[j + 1] = cell.StringCellValue;
+            //        break;
+            //}
         }
         #endregion
 
