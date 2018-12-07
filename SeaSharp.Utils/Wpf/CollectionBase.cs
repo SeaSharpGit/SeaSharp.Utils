@@ -26,14 +26,8 @@ namespace SeaSharp.Utils.Wpf
         }
         #endregion
 
-        protected List<T> Items;
-        private readonly object sync;
-
-        public ObservableList(Dispatcher dispatcher = null)
-        {
-            this.Items = new List<T>();
-            this.sync = new object();
-        }
+        protected List<T> Items = new List<T>();
+        private readonly object sync = new object();
 
         public virtual event NotifyCollectionChangedEventHandler CollectionChanged;
 
@@ -49,9 +43,8 @@ namespace SeaSharp.Utils.Wpf
                 {
                     try
                     {
-                        if (nh.Target is DispatcherObject)
+                        if (nh.Target is DispatcherObject dpo)
                         {
-                            var dpo = nh.Target as DispatcherObject;
                             if (dpo.Dispatcher != null && dpo.Dispatcher.CheckAccess() == false)
                             {
                                 dpo.Dispatcher.BeginInvoke(new OnCollectionChangedDelegate(OnCollectionChanged), e);
