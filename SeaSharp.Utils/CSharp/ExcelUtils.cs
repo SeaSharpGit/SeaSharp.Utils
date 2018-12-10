@@ -117,35 +117,33 @@ namespace SeaSharp.Utils.CSharp
                     for (int j = 0; j < row.LastCellNum; j++)
                     {
                         var cell = row.GetCell(j);
-                        dr[j + 2] = cell?.StringCellValue ?? "";
+                        switch (cell.CellType)
+                        {
+                            case CellType.Blank:
+                                dr[j + 2] = "";
+                                break;
+                            case CellType.Numeric:
+                                short format = cell.CellStyle.DataFormat;
+                                //对时间格式（2015.12.5、2015/12/5、2015-12-5等）的处理  
+                                if (format == 14 || format == 31 || format == 57 || format == 58 || format == 180)
+                                {
+                                    dr[j + 2] = cell.DateCellValue;
+                                }
+                                else
+                                {
+                                    dr[j + 2] = cell.NumericCellValue;
+                                }
+                                break;
+                            case CellType.String:
+                                dr[j + 2] = cell.StringCellValue ?? "";
+                                break;
+                        }
                     }
                     dt.Rows.Add(dr);
                     id++;
                 }
             }
             return dt;
-            //保留旧方式，留作备用
-            //switch (cell.CellType)
-            //{
-            //    case CellType.Blank:
-            //        dr[j + 1] = "";
-            //        break;
-            //    case CellType.Numeric:
-            //        short format = cell.CellStyle.DataFormat;
-            //        //对时间格式（2015.12.5、2015/12/5、2015-12-5等）的处理  
-            //        if (format == 14 || format == 31 || format == 57 || format == 58 || format == 180)
-            //        {
-            //            dr[j + 1] = cell.DateCellValue;
-            //        }
-            //        else
-            //        {
-            //            dr[j + 1] = cell.NumericCellValue;
-            //        }
-            //        break;
-            //    case CellType.String:
-            //        dr[j + 1] = cell.StringCellValue;
-            //        break;
-            //}
         }
         #endregion
 
