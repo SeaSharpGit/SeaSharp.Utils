@@ -136,24 +136,23 @@ namespace SeaSharp.Utils.Wpf
 
         public static void AutoRun(string appName, bool set = true)
         {
+            var path = System.Windows.Forms.Application.ExecutablePath;
+            var rk = Registry.CurrentUser;
+            var rgkRun = rk.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            if (rgkRun == null)
+            {
+                rgkRun = rk.CreateSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run");
+            }
             if (set) //设置开机自启动  
             {
-                string path = System.Windows.Forms.Application.ExecutablePath;
-                RegistryKey rk = Registry.LocalMachine;
-                RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
-                rk2.SetValue(appName, path);
-                rk2.Close();
-                rk.Close();
+                rgkRun.SetValue(appName, path);
             }
             else //取消开机自启动  
             {
-                string path = System.Windows.Forms.Application.ExecutablePath;
-                RegistryKey rk = Registry.LocalMachine;
-                RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
-                rk2.DeleteValue(appName, false);
-                rk2.Close();
-                rk.Close();
+                rgkRun.DeleteValue(appName, false);
             }
+            rgkRun.Close();
+            rk.Close();
         }
 
         public static bool IsAutoRun(string appName)
