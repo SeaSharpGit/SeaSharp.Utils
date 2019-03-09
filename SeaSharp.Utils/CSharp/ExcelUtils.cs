@@ -18,22 +18,30 @@ namespace SeaSharp.Utils.CSharp
     public static class ExcelUtils
     {
         #region List转DataTable
-        public static DataTable ListToDataTable<T>(IEnumerable<T> collection) where T : class, new()
+        private static DataTable ListToDataTable<T>(IEnumerable<T> collection) where T : class, new()
         {
-            var props = typeof(T).GetProperties();
             var dt = new DataTable();
-            dt.Columns.AddRange(props.Select(p => new DataColumn(p.Name, p.PropertyType)).ToArray());//添加列名
             var count = collection.Count();
             if (collection == null || count == 0)
             {
                 return dt;
             }
+            var props = typeof(T).GetProperties().Where(a => !a.IsDefined(typeof(NotMappedAttribute)));
+            var columns = new List<DataColumn>();
+            foreach (var item in props)
+            {
+                var propertyType = item.PropertyType.IsGenericType
+                    && item.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>) ?
+                        item.PropertyType.GetGenericArguments()[0] : item.PropertyType;
+                columns.Add(new DataColumn(item.Name, propertyType));
+            }
+            dt.Columns.AddRange(columns.ToArray());
             for (int i = 0; i < count; i++)
             {
                 var list = new ArrayList();
                 foreach (PropertyInfo pi in props)
                 {
-                    list.Add(pi.GetValue(collection.ElementAt(i), null));//将一行的每一列放入数组中
+                    list.Add(pi.GetValue(collection.ElementAt(i)) ?? DBNull.Value);//将一行的每一列放入数组中
                 }
                 dt.LoadDataRow(list.ToArray(), true);//添加一行数据
             }
