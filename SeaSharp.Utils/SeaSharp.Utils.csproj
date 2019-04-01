@@ -78,6 +78,7 @@
     <Compile Include="CSharp\PinYinUtils.cs" />
     <Compile Include="CSharp\RegexUtils.cs" />
     <Compile Include="CSharp\TreeUtils.cs" />
+    <Compile Include="CSharp\WeakEventHandler.cs" />
     <Compile Include="FileUtils.cs" />
     <Compile Include="DB\MySqlUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
