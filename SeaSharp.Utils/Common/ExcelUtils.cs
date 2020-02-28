@@ -4,6 +4,7 @@ using NPOI.XSSF.UserModel;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -13,7 +14,7 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 
-namespace SeaSharp.Utils.CSharp
+namespace SeaSharp.Utils.Common
 {
     public static class ExcelUtils
     {
@@ -41,9 +42,9 @@ namespace SeaSharp.Utils.CSharp
                 var list = new ArrayList();
                 foreach (PropertyInfo pi in props)
                 {
-                    list.Add(pi.GetValue(collection.ElementAt(i)) ?? DBNull.Value);//将一行的每一列放入数组中
+                    list.Add(pi.GetValue(collection.ElementAt(i)) ?? DBNull.Value);
                 }
-                dt.LoadDataRow(list.ToArray(), true);//添加一行数据
+                dt.LoadDataRow(list.ToArray(), true);
             }
             return dt;
         }
@@ -115,7 +116,7 @@ namespace SeaSharp.Utils.CSharp
                 for (int i = 1; i <= sheet.LastRowNum; i++)
                 {
                     var row = sheet.GetRow(i);
-                    if (row == null || row.Cells == null || row.Cells.Count == 0 || row.Cells.All(a => string.IsNullOrEmpty(a.StringCellValue)))
+                    if (row == null || row.Cells == null || row.Cells.Count == 0)
                     {
                         continue;
                     }

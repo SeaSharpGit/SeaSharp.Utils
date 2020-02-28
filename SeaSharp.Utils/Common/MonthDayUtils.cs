@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace SeaSharp.Utils.CSharp
+namespace SeaSharp.Utils.Common
 {
     /// <summary>
     /// 获取农历日期

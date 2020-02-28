@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace SeaSharp.Utils.CSharp
+namespace SeaSharp.Utils.Common
 {
     public static class BaseUtils
     {

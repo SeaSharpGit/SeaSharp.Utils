@@ -4,7 +4,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace SeaSharp.Utils.CSharp
+namespace SeaSharp.Utils.Common
 {
     public static class IPUtils
     {

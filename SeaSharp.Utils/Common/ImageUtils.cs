@@ -1,4 +1,4 @@
-﻿namespace SeaSharp.Utils.CSharp
+﻿namespace SeaSharp.Utils.Common
 {
     public static class ImageUtils
     {

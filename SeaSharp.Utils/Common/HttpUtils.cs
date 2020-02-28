@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Net;
 using System.Text;
 
-namespace SeaSharp.Utils.CSharp
+namespace SeaSharp.Utils.Common
 {
     public static class HttpUtils
     {
