@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Transactions;
 using MySql.Data.MySqlClient;
 
@@ -22,7 +21,7 @@ namespace SeaSharp.Utils.DB
             {
                 using (var command = new MySqlCommand(sql, connection))
                 {
-                    if (parameters != null && parameters.Count() > 0)
+                    if (parameters != null && parameters.Length > 0)
                     {
                         command.Parameters.AddRange(parameters);
                     }
@@ -44,7 +43,7 @@ namespace SeaSharp.Utils.DB
             {
                 using (var command = new MySqlCommand(sql, connection))
                 {
-                    if (parameters != null && parameters.Count() > 0)
+                    if (parameters != null && parameters.Length > 0)
                     {
                         command.Parameters.AddRange(parameters);
                     }
@@ -62,7 +61,7 @@ namespace SeaSharp.Utils.DB
             {
                 using (var command = new MySqlCommand(sql, connection))
                 {
-                    if (parameters != null && parameters.Count() > 0)
+                    if (parameters != null && parameters.Length > 0)
                     {
                         command.Parameters.AddRange(parameters);
                     }
@@ -82,7 +81,7 @@ namespace SeaSharp.Utils.DB
             {
                 using (var command = new MySqlCommand(sql, connection))
                 {
-                    if (parameters != null && parameters.Count() > 0)
+                    if (parameters != null && parameters.Length > 0)
                     {
                         command.Parameters.AddRange(parameters);
                     }
@@ -152,7 +151,7 @@ namespace SeaSharp.Utils.DB
             {
                 using (var command = new MySqlCommand(procedure, connection) { CommandType = CommandType.StoredProcedure })
                 {
-                    if (parameters != null && parameters.Count() > 0)
+                    if (parameters != null && parameters.Length > 0)
                     {
                         command.Parameters.AddRange(parameters);
                     }
@@ -171,7 +170,7 @@ namespace SeaSharp.Utils.DB
             {
                 using (var command = new MySqlCommand(procedure, connection) { CommandType = CommandType.StoredProcedure })
                 {
-                    if (parameters != null && parameters.Count() > 0)
+                    if (parameters != null && parameters.Length > 0)
                     {
                         command.Parameters.AddRange(parameters);
                     }
@@ -189,7 +188,7 @@ namespace SeaSharp.Utils.DB
             {
                 using (var command = new MySqlCommand(procedure, connection) { CommandType = CommandType.StoredProcedure })
                 {
-                    if (parameters != null && parameters.Count() > 0)
+                    if (parameters != null && parameters.Length > 0)
                     {
                         command.Parameters.AddRange(parameters);
                     }
@@ -209,7 +208,7 @@ namespace SeaSharp.Utils.DB
             {
                 using (var command = new MySqlCommand(procedure, connection) { CommandType = CommandType.StoredProcedure })
                 {
-                    if (parameters != null && parameters.Count() > 0)
+                    if (parameters != null && parameters.Length > 0)
                     {
                         command.Parameters.AddRange(parameters);
                     }
