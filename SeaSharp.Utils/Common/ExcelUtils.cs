@@ -126,6 +126,10 @@ namespace SeaSharp.Utils.Common
                     for (int j = 0; j < row.LastCellNum; j++)
                     {
                         var cell = row.GetCell(j);
+                        if (cell == null)
+                        {
+                            continue;
+                        }
                         switch (cell.CellType)
                         {
                             case CellType.Blank:
